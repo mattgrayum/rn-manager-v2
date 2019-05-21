@@ -1,0 +1,5 @@
+export const INPUT_CHANGED = 'input_changed'
+export const LOGIN_USER_SUCCESS = 'login_user_success'
+export const LOGIN_USER_FAIL = 'login_user_fail'
+export const LOADING = 'loading'
+export const EMPLOYEE_ADDED = 'employee_added'
