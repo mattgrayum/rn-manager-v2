@@ -1,10 +1,10 @@
-import { store } from '../FireStore'
+import { createEmployee } from '../FireStore'
 import { EMPLOYEE_ADDED } from './types'
 
 export const addEmployee = (name, phone, shift) => {
 
     return dispatch => {
-        store.createEmployee(name, phone, shift)
+        createEmployee(name, phone, shift)
             .then(() => {
                 dispatch({
                     type: EMPLOYEE_ADDED,

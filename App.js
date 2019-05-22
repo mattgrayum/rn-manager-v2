@@ -4,26 +4,12 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import reducers from './src/reducers'
 import Router from './src/Router'
-import firebase from 'firebase'
+import { firebaseInit } from './src/FireStore'
 
 class App extends React.Component {
 
   componentWillMount() {
-
-    const config = {
-      apiKey: 'AIzaSyDxGeAdGYZLpyuJqL-ueaYLY_GqVnk_vrk',
-      authDomain: 'manager-9522b.firebaseapp.com',
-      databaseURL: 'https://manager-9522b.firebaseio.com',
-      projectId: 'manager-9522b',
-      storageBucket: 'manager-9522b.appspot.com',
-      messagingSenderId: '830271348290',
-      appId: '1:830271348290:web:1f6ed9f2c09e292a'
-    }
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config)
-    }
-
+    firebaseInit()
   }
 
   render() {
