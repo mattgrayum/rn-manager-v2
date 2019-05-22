@@ -40,8 +40,8 @@ class EmployeeList extends React.Component {
                     </View>
                 )
             }
-            return Object.entries(this.props.employees).map(item => (
-                <Card key={item}>
+            return this.props.employees.map(item => (
+                <Card key={item.id}>
 
                     <CardSection style={employeeSectionStyle}>
                         <Text style={employeeNameStyle}>

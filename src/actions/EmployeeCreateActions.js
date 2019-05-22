@@ -31,7 +31,7 @@ export const getEmployees = () => dispatch => {
 
     getUserEmployees()
         .then(employees => {
-            console.log('employees:', employees)
+            console.log('the returned employees:', employees)
             dispatch({
                 type: EMPLOYEES_RETRIEVED,
                 payload: employees

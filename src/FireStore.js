@@ -78,26 +78,18 @@ export const getUserEmployees = () => {
         return userRef.get()
             .then(doc => {
                 if (doc.exists) {
-                    userRef.collection('employees').get()
+                    return userRef.collection('employees').get()
                         .then(snapshot => {
                             let employees = []
-
                             snapshot.forEach(doc => {
-
-                                const { id, ref } = doc
-                                ref.get()
-                                    .then(doc => {
-                                        const { name, phone, email } = doc
-                                        employees.push({ id, name, phone, email })
-                                        console.log("The Employees: ", employees)
-                                    })
-
-
+                                const data = doc.data()
+                                const { id } = doc
+                                const { name, phone, shift } = data
+                                employees.push({ id, name, phone, shift })
                             })
-
-
-
+                            return employees
                         })
+
                 }
                 else {
                     console.log('You are not a logged in user.')
