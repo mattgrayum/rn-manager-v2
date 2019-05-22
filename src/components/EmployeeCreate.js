@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Picker, Text } from 'react-native'
 import { inputChanged, addEmployee } from '../actions'
-import { Card, CardSection, Input, Button } from './common'
+import { Card, CardSection, Input, Button, Spinner } from './common'
 
 class EmployeeCreate extends React.Component {
 
@@ -15,12 +15,15 @@ class EmployeeCreate extends React.Component {
         this.props.inputChanged({ prop: inputName, value })
     }
 
-    render() {
-        if (this.props.employees) {
-            this.props.employees.forEach(item => {
-                console.log(item)
-            });
+    renderButton = () => {
+        if (this.props.loading) {
+            return <Spinner />
         }
+        return <Button buttonText='Add Employee' onPress={this.onPress} />
+    }
+
+    render() {
+
         return (
             <Card>
 
@@ -61,10 +64,7 @@ class EmployeeCreate extends React.Component {
                 </CardSection>
 
                 <CardSection>
-                    <Button
-                        buttonText='Add Employee'
-                        onPress={this.onPress}
-                    />
+                    {this.renderButton()}
                 </CardSection>
 
             </Card>
@@ -85,7 +85,8 @@ const mapStateToProps = (state) => {
         name: state.employeeCreate.name,
         phone: state.employeeCreate.phone,
         shift: state.employeeCreate.shift,
-        employees: state.employeeCreate.employees
+        employees: state.employeeCreate.employees,
+        loading: state.employeeCreate.loading
     }
 }
 

@@ -20,12 +20,37 @@ export const firebaseInit = () => {
     }
 }
 
+/**
+ * Sign a user in.
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ * 
+ * @returns Promise
+ */
 export const signIn = (email, password) =>
     firebase.auth().signInWithEmailAndPassword(email, password)
 
+/**
+ * Create a new user profile.
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ * 
+ * @returns Promise
+ */
 export const createUser = (email, password) =>
     firebase.auth().createUserWithEmailAndPassword(email, password)
 
+/**
+ * Create a new employee document for the current user.
+ * 
+ * @param {string} name 
+ * @param {string} phone 
+ * @param {string} shift 
+ * 
+ * @returns Promise
+ */
 export const createEmployee = (name, phone, shift) => {
 
     if (currentUser = firebase.auth().currentUser) {
@@ -61,6 +86,32 @@ export const createEmployee = (name, phone, shift) => {
                 }
             })
             .catch(error => console.log('checkUserExists: ', error))
+    }
+}
+
+/**
+ * Get all employees for the current user.
+ * 
+ * @returns Promise
+ */
+export const getUserEmployees = () => {
+
+    if (currentUser = firebase.auth().currentUser) {
+
+        const userRef =
+            firebase.firestore().collection('users').doc(currentUser.uid)
+
+        return userRef.get()
+            .then(doc => {
+                if (doc.exists) {
+                    return doc.data().employees
+                }
+                else {
+                    console.log('You are not a logged in user.')
+                }
+            })
+            .catch(error => console.log('checkUserExists: ', error))
+
     }
 }
 

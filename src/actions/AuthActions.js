@@ -1,25 +1,19 @@
 import { Actions } from 'react-native-router-flux'
 import { signIn, createUser } from '../FireStore'
-import {
-    LOGIN_USER_SUCCESS,
-    LOGIN_USER_FAIL,
-    LOADING
-} from './types'
+import { LOGIN_USER_SUCCESS, LOGIN_USER_FAIL } from './types'
+import { showSpinner } from './CommonActions'
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = ({ email, password }) => dispatch => {
 
-    return dispatch => {
+    showSpinner(dispatch)
 
-        showSpinner(dispatch)
-
-        signIn(email, password)
+    signIn(email, password)
+        .then(user => loginUserSuccess(dispatch, user))
+        .catch(() => createUser(email, password)
             .then(user => loginUserSuccess(dispatch, user))
-            .catch(() => {
-                createUser(email, password)
-                    .then(user => loginUserSuccess(dispatch, user))
-                    .catch(error => loginUserFail(dispatch, error, email))
-            })
-    }
+            .catch(error => loginUserFail(dispatch, error, email))
+        )
+
 }
 
 const loginUserSuccess = (dispatch, user) => {
@@ -27,14 +21,7 @@ const loginUserSuccess = (dispatch, user) => {
     Actions.main() //navigate to the next scene
 }
 
-const loginUserFail = (dispatch, error, email) => {
-    dispatch({
-        type: LOGIN_USER_FAIL,
-        payload: { error, email }
-    })
-}
+const loginUserFail = (dispatch, error, email) =>
+    dispatch({ type: LOGIN_USER_FAIL, payload: { error, email } })
 
-const showSpinner = dispatch => {
-    dispatch({ type: LOADING })
-}
 
