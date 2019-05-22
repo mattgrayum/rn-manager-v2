@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     name: '',
     phone: '',
     shift: '',
-    employees: [],
+    employees: {},
     loading: false
 }
 
@@ -22,12 +22,13 @@ export default (state = INITIAL_STATE, action) => {
             const { name, phone, shift } = action.payload
             return {
                 ...state,
-                employees: [...state.employees, { name, phone, shift }],
+                employees: { ...state.employees, id: { name, phone, shift } },
                 name: '',
                 phone: '',
                 shift: 'Monday'
             }
         case EMPLOYEES_RETRIEVED:
+            console.log('action.payload', action.payload)
             return {
                 ...state,
                 employees: action.payload,

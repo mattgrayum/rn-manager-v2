@@ -55,37 +55,11 @@ export const createEmployee = (name, phone, shift) => {
 
     if (currentUser = firebase.auth().currentUser) {
 
-        const db = firebase.firestore()
-        const fieldValue = firebase.firestore.FieldValue
-        const userRef = db.collection('users').doc(currentUser.uid)
+        const userRef =
+            firebase.firestore().collection('users').doc(currentUser.uid)
 
-        // Create an object to pass to the update() method to add an 
-        // employee to the stored array of employees
-        const employees = {
-            employees: fieldValue.arrayUnion({ name, phone, shift })
-        }
+        return userRef.collection('employees').add({ name, phone, shift })
 
-        // Create an object to pass to the set() method that adds an email
-        // property to a new user that is adding their first employee.
-        // TODO: Set up new user profile when they first create their user
-        //          account
-        const newUserEmployee = {
-            ...employees,
-            email: currentUser.email
-        }
-
-        // Check to see if the user has a profile yet, and then take the
-        // appropriate action.
-        return userRef.get()
-            .then(doc => {
-                if (doc.exists) {
-                    userRef.update(employees)
-                }
-                else {
-                    userRef.set(newUserEmployee)
-                }
-            })
-            .catch(error => console.log('checkUserExists: ', error))
     }
 }
 
@@ -104,15 +78,40 @@ export const getUserEmployees = () => {
         return userRef.get()
             .then(doc => {
                 if (doc.exists) {
-                    return doc.data().employees
+                    userRef.collection('employees').get()
+                        .then(snapshot => {
+                            let employees = []
+
+                            snapshot.forEach(doc => {
+
+                                const { id, ref } = doc
+                                ref.get()
+                                    .then(doc => {
+                                        const { name, phone, email } = doc
+                                        employees.push({ id, name, phone, email })
+                                        console.log("The Employees: ", employees)
+                                    })
+
+
+                            })
+
+
+
+                        })
                 }
                 else {
                     console.log('You are not a logged in user.')
                 }
             })
-            .catch(error => console.log('checkUserExists: ', error))
+            .catch(error => console.log('checkUserExists: ', 'error'))
 
     }
 }
+
+/**
+ * Delete an employee.
+ *
+ * @param {}
+ */
 
 

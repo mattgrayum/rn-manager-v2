@@ -18,38 +18,49 @@ class EmployeeList extends React.Component {
             employeeDataStyle,
             employeeSectionStyle,
             employeeNameStyle,
-            buttonSectionStyle
+            buttonSectionStyle,
+            noContentContainerStyle
         } = styles
 
+        //console.log(this.props.employees)
         if (this.props.loading) {
 
             return (
-                <View style={{ flex: 1, height: 300, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={noContentContainerStyle}>
                     <Spinner size='large' />
                 </View>
             )
 
         }
-        return this.props.employees.map(item => (
-            <Card key={item.name + item.phone}>
-
-                <CardSection style={employeeSectionStyle}>
-                    <Text style={employeeNameStyle}>
-                        {item.name}
-                    </Text>
-                    <View style={{ flex: .5 }}>
-                        <Text style={employeeDataStyle}>Phone: {item.phone}</Text>
-                        <Text style={employeeDataStyle}>Shift: {item.shift}</Text>
+        else {
+            if (!this.props.employees) {
+                return (
+                    <View style={noContentContainerStyle}>
+                        <Text>There are no employees to display</Text>
                     </View>
-                </CardSection>
+                )
+            }
+            return Object.entries(this.props.employees).map(item => (
+                <Card key={item}>
 
-                <CardSection style={buttonSectionStyle}>
-                    <Button buttonText="Delete" onPress={this.onPress} />
-                </CardSection>
+                    <CardSection style={employeeSectionStyle}>
+                        <Text style={employeeNameStyle}>
+                            {item.name}
+                        </Text>
+                        <View style={{ flex: .5 }}>
+                            <Text style={employeeDataStyle}>Phone: {item.phone}</Text>
+                            <Text style={employeeDataStyle}>Shift: {item.shift}</Text>
+                        </View>
+                    </CardSection>
 
-            </Card >
+                    <CardSection style={buttonSectionStyle}>
+                        <Button buttonText="Delete" onPress={this.onPress} />
+                    </CardSection>
 
-        ))
+                </Card >
+
+            ))
+        }
     }
     render() {
 
@@ -83,6 +94,12 @@ const styles = {
     buttonSectionStyle: {
         paddingTop: 5,
         paddingBottom: 5
+    },
+    noContentContainerStyle: {
+        flex: 1,
+        height: 400,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 }
 
