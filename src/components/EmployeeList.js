@@ -12,7 +12,7 @@ class EmployeeList extends React.Component {
     }
 
     renderEmployees() {
-        const { noContentContainerStyle, scrollViewstyle } = styles
+        const { noContentContainerStyle } = styles
         const { loading, employees } = this.props
 
         if (loading) {
@@ -23,20 +23,20 @@ class EmployeeList extends React.Component {
             )
         }
         else {
-            if (!employees) {
+            if (!employees.length) {
                 return (
                     <View style={noContentContainerStyle}>
                         <Text>There are no employees to display</Text>
                     </View>
                 )
             }
-            return employees.map(e => <Employee employee={e} />)
+            return employees.map(e => <Employee key={e.id} employee={e} />)
         }
     }
 
     render() {
         return (
-            <ScrollView style={scrollViewstyle}>
+            <ScrollView style={styles.scrollViewstyle}>
                 {this.renderEmployees()}
             </ScrollView>
         )

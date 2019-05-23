@@ -34,10 +34,10 @@ class Employee extends React.Component {
             buttonContainerStyle,
         } = styles
 
-        const { id, name, phone, shift } = this.props.employee
+        const { name, phone, shift } = this.props.employee
 
         return (
-            <Card key={id}>
+            <Card>
                 <CardSection style={containerStyle}>
                     <Text style={nameStyle}>
                         {name}

@@ -9,19 +9,16 @@ export const addEmployee = (name, phone, shift) => dispatch => {
 
     createEmployee(name, phone, shift)
         .then(employeeRef => {
-            //console.log('employee id: ', employeeRef.id)
             dispatch({
                 type: EMPLOYEE_ADDED,
                 payload: {
                     id: employeeRef.id,
-                    name,
-                    phone,
-                    shift
+                    name, phone, shift
                 }
             })
             Actions.employeeList()
         })
-        .catch(error => console.log('addEmployee: ', 'error'))
+        .catch(error => console.log('addEmployee: ', error))
 
 }
 
@@ -43,10 +40,9 @@ export const removeEmployee = id => dispatch => {
     showSpinner(dispatch)
 
     deleteEmployee(id)
-        .then(() => dispatch({
-            type: EMPLOYEE_DELETED
-        }))
+        .then(() => dispatch({ type: EMPLOYEE_DELETED, payload: id }))
         .catch(error => console.log('removeEmployee:', error))
+
 }
 
 

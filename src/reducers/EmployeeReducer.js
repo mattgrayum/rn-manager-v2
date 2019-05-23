@@ -20,13 +20,14 @@ export default (state = INITIAL_STATE, action) => {
             const { prop, value } = action.payload
             return { ...state, [prop]: value }
         case EMPLOYEE_ADDED:
-            const { name, phone, shift } = action.payload
+            const { id, name, phone, shift } = action.payload
             return {
                 ...state,
                 employees: [...state.employees, { id, name, phone, shift }],
                 name: '',
                 phone: '',
-                shift: 'Monday'
+                shift: 'Monday',
+                loading: false
             }
         case EMPLOYEES_RETRIEVED:
             return {
@@ -35,10 +36,10 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false
             }
         case EMPLOYEE_DELETED:
-            console.log(action.payload)
             return {
                 ...state,
-                employees: state.employees.filter(e => e !== action.payload)
+                loading: false,
+                employees: state.employees.filter(e => e.id !== action.payload)
             }
         case LOADING:
             return { ...state, loading: true }
