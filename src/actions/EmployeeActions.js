@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux'
 import { createEmployee, getUserEmployees, deleteEmployee } from '../FireStore'
-import { EMPLOYEE_ADDED, EMPLOYEES_RETRIEVED, EMPLOYEE_DELETED } from './types'
+import { EMPLOYEE_ADDED, EMPLOYEES_RETRIEVED, EMPLOYEE_DELETED, EMPLOYEE_SELECTED } from './types'
 import { showSpinner } from './CommonActions'
 
 export const addEmployee = (name, phone, shift) => dispatch => {
@@ -44,6 +44,9 @@ export const removeEmployee = id => dispatch => {
         .catch(error => console.log('removeEmployee:', error))
 
 }
+
+export const selectEmployee = employee =>
+    ({ type: EMPLOYEE_SELECTED, payload: employee })
 
 
 

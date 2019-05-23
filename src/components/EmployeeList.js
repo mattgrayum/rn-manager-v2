@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { FlatList, ScrollView, View, Text } from 'react-native'
 import { Spinner } from './common'
 import { getEmployees, removeEmployee } from '../actions/EmployeeActions'
-import Employee from './Employee'
+import Employee from './EmployeeListItem'
 
 class EmployeeList extends React.Component {
 

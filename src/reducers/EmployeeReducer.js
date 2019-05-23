@@ -3,15 +3,18 @@ import {
     EMPLOYEE_ADDED,
     EMPLOYEES_RETRIEVED,
     EMPLOYEE_DELETED,
+    EMPLOYEE_SELECTED,
     LOADING
 } from '../actions/types'
+
 
 const INITIAL_STATE = {
     name: '',
     phone: '',
     shift: '',
     employees: [],
-    loading: false
+    loading: false,
+    selectedEmployee: {}
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -41,6 +44,8 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
                 employees: state.employees.filter(e => e.id !== action.payload)
             }
+        case EMPLOYEE_SELECTED:
+            return { ...state, selectedEmployee: action.payload }
         case LOADING:
             return { ...state, loading: true }
         default:

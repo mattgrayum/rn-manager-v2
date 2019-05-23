@@ -1,12 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text } from 'react-native'
+import { Actions } from 'react-native-router-flux'
+import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import { Card, CardSection, Spinner, Button } from './common'
-import { removeEmployee } from '../actions/EmployeeActions'
+import { removeEmployee, selectEmployee } from '../actions/EmployeeActions'
 
 class Employee extends React.Component {
 
-    onPress = () => {
+    onRowPress = () => {
+
+        const { selectEmployee, employee } = this.props
+
+        selectEmployee(employee)
+
+        Actions.employeeDetail()
+
+    }
+
+    onDeletePress = () => {
 
         const { removeEmployee, employee } = this.props
 
@@ -22,7 +33,7 @@ class Employee extends React.Component {
                 </View>
             )
         }
-        return <Button buttonText="Delete" onPress={this.onPress} />
+        return <Button buttonText="Delete" onPress={this.onDeletePress} />
     }
 
     render() {
@@ -37,20 +48,22 @@ class Employee extends React.Component {
         const { name, phone, shift } = this.props.employee
 
         return (
-            <Card>
-                <CardSection style={containerStyle}>
-                    <Text style={nameStyle}>
-                        {name}
-                    </Text>
-                    <View style={{ flex: .5 }}>
-                        <Text style={dataStyle}>Phone: {phone}</Text>
-                        <Text style={dataStyle}>Shift: {shift}</Text>
-                    </View>
-                </CardSection>
-                <CardSection style={buttonContainerStyle}>
-                    {this.renderButton()}
-                </CardSection>
-            </Card >
+            <TouchableWithoutFeedback onPress={this.onRowPress}>
+                <View>
+                    <CardSection style={containerStyle}>
+                        <Text style={nameStyle}>
+                            {name}
+                        </Text>
+                        <View style={{ flex: .5 }}>
+                            <Text style={dataStyle}>Phone: {phone}</Text>
+                            <Text style={dataStyle}>Shift: {shift}</Text>
+                        </View>
+                    </CardSection>
+                    <CardSection style={buttonContainerStyle}>
+
+                    </CardSection>
+                </View >
+            </TouchableWithoutFeedback>
         )
     }
 }
@@ -86,4 +99,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { removeEmployee })(Employee)
+export default connect(mapStateToProps, { removeEmployee, selectEmployee })(Employee)
