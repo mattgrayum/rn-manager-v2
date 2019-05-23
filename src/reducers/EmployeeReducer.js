@@ -36,7 +36,7 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 employees: action.payload,
-                loading: false
+                loading: false,
             }
         case EMPLOYEE_DELETED:
             return {

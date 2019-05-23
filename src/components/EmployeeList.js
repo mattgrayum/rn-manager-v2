@@ -39,11 +39,7 @@ class EmployeeList extends React.Component {
     }
 
     render() {
-        return (
-            <ScrollView style={styles.scrollViewstyle}>
-                {this.renderEmployees()}
-            </ScrollView>
-        )
+        return this.renderEmployees()
     }
 }
 
@@ -53,9 +49,6 @@ const styles = {
         height: 400,
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    scrollViewstyle: {
-        flexGrow: 1
     }
 }
 
