@@ -70,34 +70,34 @@ export const createEmployee = (name, phone, shift) => {
  */
 export const getUserEmployees = () => {
 
-    if (currentUser = firebase.auth().currentUser) {
+    //if (currentUser = firebase.auth().currentUser) {
 
-        const userRef =
-            firebase.firestore().collection('users').doc(currentUser.uid)
+    const userRef =
+        firebase.firestore().collection('users').doc('C3MQcrz167fE1HrviPGOzEeqJ0C2')
 
-        return userRef.get()
-            .then(doc => {
-                if (doc.exists) {
-                    return userRef.collection('employees').get()
-                        .then(snapshot => {
-                            let employees = []
-                            snapshot.forEach(doc => {
-                                const data = doc.data()
-                                const { id } = doc
-                                const { name, phone, shift } = data
-                                employees.push({ id, name, phone, shift })
-                            })
-                            return employees
+    return userRef.get()
+        .then(doc => {
+            if (doc.exists) {
+                return userRef.collection('employees').get()
+                    .then(snapshot => {
+                        let employees = []
+                        snapshot.forEach(doc => {
+                            const data = doc.data()
+                            const { id } = doc
+                            const { name, phone, shift } = data
+                            employees.push({ id, name, phone, shift })
                         })
+                        return employees
+                    })
 
-                }
-                else {
-                    console.log('You are not a logged in user.')
-                }
-            })
-            .catch(error => console.log('checkUserExists: ', 'error'))
+            }
+            else {
+                console.log('You are not a logged in user.')
+            }
+        })
+        .catch(error => console.log('checkUserExists: ', 'error'))
 
-    }
+    //}
 }
 
 /**

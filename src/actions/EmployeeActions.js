@@ -16,7 +16,7 @@ export const addEmployee = (name, phone, shift) => dispatch => {
                     name, phone, shift
                 }
             })
-            Actions.employeeList()
+            Actions.employeeList({ type: 'reset' })
         })
         .catch(error => console.log('addEmployee: ', error))
 
@@ -31,7 +31,7 @@ export const getEmployees = () => dispatch => {
             type: EMPLOYEES_RETRIEVED,
             payload: employees
         }))
-        .catch(error => console.log('getUserEmployees: ', 'error'))
+        .catch(error => console.log('getUserEmployees: ', error))
 
 }
 

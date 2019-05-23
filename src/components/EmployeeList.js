@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ScrollView, View, Text } from 'react-native'
+import { FlatList, ScrollView, View, Text } from 'react-native'
 import { Spinner } from './common'
 import { getEmployees, removeEmployee } from '../actions/EmployeeActions'
 import Employee from './Employee'
@@ -30,7 +30,11 @@ class EmployeeList extends React.Component {
                     </View>
                 )
             }
-            return employees.map(e => <Employee key={e.id} employee={e} />)
+            return <FlatList
+                data={employees}
+                renderItem={({ item }) => <Employee key={item.id} employee={item} />}
+                keyExtractor={employees => employees.id.toString()}
+            />
         }
     }
 
