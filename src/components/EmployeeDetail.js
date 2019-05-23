@@ -3,8 +3,18 @@ import { View, Text, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { Card, CardSection, Button, Spinner } from './common'
 import { removeEmployee } from '../actions/EmployeeActions'
+import { Actions } from 'react-native-router-flux';
 
 class EmployeeDetail extends React.Component {
+
+    onEditPress = () => {
+
+        Actions.employeeCreate({
+            employee: this.props.employee,
+            edit: true
+        })
+
+    }
 
     onDeletePress = () => {
 
@@ -14,11 +24,11 @@ class EmployeeDetail extends React.Component {
 
     }
 
-    renderButton = () => {
+    renderButton = (text, callback) => {
         if (this.props.loading) {
             return <Spinner size='large' />
         }
-        return <Button buttonText="Delete" onPress={this.onDeletePress} />
+        return <Button buttonText={text} onPress={callback} />
     }
 
     render() {
@@ -54,7 +64,10 @@ class EmployeeDetail extends React.Component {
                     </View>
                 </CardSection>
                 <CardSection style={buttonContainerStyle}>
-                    {this.renderButton()}
+                    {this.renderButton('Edit', this.onEditPress)}
+                </CardSection>
+                <CardSection style={buttonContainerStyle}>
+                    {this.renderButton('Delete', this.onDeletePress)}
                 </CardSection>
             </Card >
         )

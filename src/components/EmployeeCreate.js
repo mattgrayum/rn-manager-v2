@@ -6,24 +6,37 @@ import { Card, CardSection, Input, Button, Spinner } from './common'
 
 class EmployeeCreate extends React.Component {
 
-    onPress = () => {
+    onAddPress = () => {
         const { name, phone, shift } = this.props
         this.props.addEmployee(name, phone, shift || 'Monday')
+    }
+
+    onEditPress = () => {
+        console.log("Edit Mode")
     }
 
     onInputChange = (inputName, value) => {
         this.props.inputChanged({ prop: inputName, value })
     }
 
-    renderButton = () => {
+    renderButton = (edit) => {
+        const params = edit ?
+            {
+                text: 'Update',
+                callback: this.onEditPress
+            } : {
+                text: 'Add Employee',
+                callback: this.onAddPress
+            }
+
         if (this.props.loading) {
             return <Spinner />
         }
-        return <Button buttonText='Add Employee' onPress={this.onPress} />
+        return <Button buttonText={params.text} onPress={params.callback} />
     }
 
     render() {
-
+        const { name, phone, shift } = this.props.employee
         return (
             <Card>
 
@@ -32,7 +45,7 @@ class EmployeeCreate extends React.Component {
                         label='Name'
                         placeholder='Jane Doe'
                         onChangeText={this.onInputChange.bind(this, 'name')}
-                        value={this.props.name}
+                        value={this.props.name || name}
                     />
                 </CardSection>
 
@@ -41,7 +54,7 @@ class EmployeeCreate extends React.Component {
                         label='Phone'
                         placeholder='555-555-5555'
                         onChangeText={this.onInputChange.bind(this, 'phone')}
-                        value={this.props.phone}
+                        value={this.props.phone || phone}
                     />
                 </CardSection>
 
@@ -49,7 +62,7 @@ class EmployeeCreate extends React.Component {
                     <Text style={styles.pickerLabelStyle}>Select a Shift</Text>
                     <Picker
                         prompt='Select the day of your shift'
-                        selectedValue={this.props.shift}
+                        selectedValue={this.props.shift || shift}
                         onValueChange={this.onInputChange.bind(this, 'shift')}
                         style={{ flex: 1, marginLeft: 15 }}
                     >
@@ -64,7 +77,7 @@ class EmployeeCreate extends React.Component {
                 </CardSection>
 
                 <CardSection>
-                    {this.renderButton()}
+                    {this.renderButton(this.props.edit)}
                 </CardSection>
 
             </Card>
