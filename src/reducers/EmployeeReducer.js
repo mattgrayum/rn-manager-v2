@@ -2,6 +2,7 @@ import {
     INPUT_CHANGED,
     EMPLOYEE_ADDED,
     EMPLOYEES_RETRIEVED,
+    EMPLOYEE_DELETED,
     LOADING
 } from '../actions/types'
 
@@ -28,11 +29,16 @@ export default (state = INITIAL_STATE, action) => {
                 shift: 'Monday'
             }
         case EMPLOYEES_RETRIEVED:
-            console.log('action.payload', action.payload)
             return {
                 ...state,
                 employees: action.payload,
                 loading: false
+            }
+        case EMPLOYEE_DELETED:
+            console.log(action.payload)
+            return {
+                ...state,
+                employees: state.employees.filter(e => e !== action.payload)
             }
         case LOADING:
             return { ...state, loading: true }

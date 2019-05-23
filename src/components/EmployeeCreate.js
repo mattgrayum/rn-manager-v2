@@ -82,11 +82,11 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return {
-        name: state.employeeCreate.name,
-        phone: state.employeeCreate.phone,
-        shift: state.employeeCreate.shift,
-        employees: state.employeeCreate.employees,
-        loading: state.employeeCreate.loading
+        name: state.employee.name,
+        phone: state.employee.phone,
+        shift: state.employee.shift,
+        employees: state.employee.employees,
+        loading: state.employee.loading
     }
 }
 

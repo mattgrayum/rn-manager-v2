@@ -103,7 +103,23 @@ export const getUserEmployees = () => {
 /**
  * Delete an employee.
  *
- * @param {}
+ * @returns Promis
  */
+export const deleteEmployee = id => {
+
+    if (currentUser = firebase.auth().currentUser) {
+
+        const employeeRef =
+            firebase.firestore()
+                .collection('users').doc(currentUser.uid)
+                .collection('employees').doc(id)
+
+        return employeeRef.delete()
+            .then(() => console.log("It has been deleted"))
+            .catch(error => console.log('deleteEmployee:', error))
+
+    }
+
+}
 
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import firebase from 'firebase'
-import {Card, CardSection, Button, Input, Spinner } from './common'
+import { Card, CardSection, Button, Input, Spinner } from './common'
 
-class LogoutForm extends React.Component{
+class LogoutForm extends React.Component {
 
     onPress = () => {
         firebase.auth().signOut()
@@ -12,9 +12,9 @@ class LogoutForm extends React.Component{
     renderButton = () => {
 
         return (
-            <Button 
+            <Button
                 buttonText="Log Out"
-                onPress={ this.onPress.bind(this) }
+                onPress={this.onPress.bind(this)}
             />
         )
     }
@@ -25,7 +25,7 @@ class LogoutForm extends React.Component{
             <View>
                 <Card>
                     <CardSection>
-                        { this.renderButton() }
+                        {this.renderButton()}
                     </CardSection>
                 </Card>
             </View>
