@@ -1,12 +1,12 @@
 import React from 'react'
 import { TouchableOpacity, Text } from 'react-native'
 
-const Button = ({ buttonText, onPress }) => {
-    const {buttonStyle, textStyle} = styles
+const Button = ({ buttonText, onPress, customButtonStyle, customTextStyle }) => {
+    const { buttonStyle, textStyle } = styles
     return (
-        <TouchableOpacity onPress={ onPress } style={buttonStyle}>
-            <Text style={textStyle}>
-                { buttonText }
+        <TouchableOpacity onPress={onPress} style={[buttonStyle, customButtonStyle]}>
+            <Text style={[textStyle, customTextStyle]}>
+                {buttonText}
             </Text>
         </TouchableOpacity>
     )
@@ -34,4 +34,4 @@ const styles = {
 
 }
 
-export {Button}
+export { Button }

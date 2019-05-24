@@ -20,10 +20,14 @@ class EmployeeForm extends React.Component {
     }
 
     render() {
-        console.log('-*************************************')
-        console.log('Props in EmployeeForm', this.props)
-        const { name, phone, shift } = this.props
+        const { selectedEmployee, name, phone, shift } = this.props
         const { pickerLabelStyle, pickerStyle } = styles
+        let inputName, inputPhone, inputShift = ''
+        if (selectedEmployee) {
+            inputName = name || selectedEmployee.name
+            inputPhone = phone || selectedEmployee.phone
+            inputShift = shift || selectedEmployee.shift
+        }
         return (
             <Card>
                 <CardSection>
@@ -31,7 +35,7 @@ class EmployeeForm extends React.Component {
                         label='Name'
                         placeholder='Jane Doe'
                         onChangeText={this.onInputChange.bind(this, 'name')}
-                        value={name}
+                        value={inputName}
                     />
                 </CardSection>
                 <CardSection>
@@ -39,14 +43,14 @@ class EmployeeForm extends React.Component {
                         label='Phone'
                         placeholder='555-555-5555'
                         onChangeText={this.onInputChange.bind(this, 'phone')}
-                        value={phone}
+                        value={inputPhone}
                     />
                 </CardSection>
                 <CardSection style={{ flexDirection: 'column', height: 100 }}>
                     <Text style={pickerLabelStyle}>Select a Shift</Text>
                     <Picker
                         prompt='Select the day of your shift'
-                        selectedValue={shift}
+                        selectedValue={inputShift}
                         onValueChange={this.onInputChange.bind(this, 'shift')}
                         style={pickerStyle}
                     >

@@ -11,8 +11,6 @@ class EmployeeCreate extends React.Component {
     }
 
     render() {
-        console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-        console.log('Props in EmployeeCreate', this.props)
         const { name, phone, shift } = this.props
         return <EmployeeForm
             name={name}

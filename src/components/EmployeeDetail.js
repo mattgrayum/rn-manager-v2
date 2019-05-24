@@ -7,28 +7,16 @@ import { Actions } from 'react-native-router-flux';
 
 class EmployeeDetail extends React.Component {
 
-    onEditPress = () => {
-        const { name, phone, shift } = this.props
-        Actions.employeeEdit({ name, phone, shift })
-    }
+    onEditPress = () => Actions.employeeEdit()
 
-    onDeletePress = () => {
-
-        const { removeEmployee, employee } = this.props
-
-        removeEmployee(employee.id)
-
-    }
+    onDeletePress = () => Actions.deleteConfirm()
 
     renderButton = (text, callback) => {
-        if (this.props.loading) {
-            return <Spinner size='large' />
-        }
+        if (this.props.loading) { return <Spinner size='large' /> }
         return <Button buttonText={text} onPress={callback} />
     }
 
     render() {
-
         const {
             dataStyle,
             dataContainerStyle,
@@ -40,24 +28,23 @@ class EmployeeDetail extends React.Component {
             buttonContainerStyle,
         } = styles
 
-        const { name, phone, shift, url } = this.props
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-        console.log('Props in EmployeeDetail', this.props)
+        const { selectedName, selectedPhone, selectedShift, selectedUrl } = this.props
+
         return (
 
             <Card style={containerStyle}>
                 <CardSection style={employeeSectionStyle}>
                     <View style={thumbnailContainerStyle}>
                         <Image
-                            source={{ uri: url }}
+                            source={{ uri: selectedUrl }}
                             style={thumbnailStyle}
                         />
                     </View>
                     <View style={{ flex: .5, paddingLeft: 10 }}>
-                        <Text style={nameStyle}>{name}</Text>
+                        <Text style={nameStyle}>{selectedName}</Text>
                         <View style={dataContainerStyle}>
-                            <Text style={dataStyle}>{phone}</Text>
-                            <Text style={dataStyle}>{shift} Shift</Text>
+                            <Text style={dataStyle}>{selectedPhone}</Text>
+                            <Text style={dataStyle}>{selectedShift} Shift</Text>
                         </View>
                     </View>
                 </CardSection>
@@ -113,10 +100,11 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        name: state.employee.selectedEmployee.name,
-        phone: state.employee.selectedEmployee.phone,
-        shift: state.employee.selectedEmployee.shift,
-        url: state.employee.selectedEmployee.url,
+        id: state.employee.selectedEmployee.id,
+        selectedName: state.employee.selectedEmployee.name,
+        selectedPhone: state.employee.selectedEmployee.phone,
+        selectedShift: state.employee.selectedEmployee.shift,
+        selectedUrl: state.employee.selectedEmployee.url,
         loading: state.employee.loading
     }
 }

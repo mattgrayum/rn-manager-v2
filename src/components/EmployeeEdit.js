@@ -1,22 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateEmployee } from '../actions'
+import { editEmployee } from '../actions'
 import EmployeeForm from './EmployeeForm'
 
 class EmployeeEdit extends React.Component {
 
     onPress = () => {
-        console.log("Edit Mode")
+        const { id, name, phone, shift, url } = this.props.selectedEmployee
+        const { editEmployee, inputName, inputPhone, inputUrl, inputShift } = this.props
+        const updatedEmployee = {
+            id,
+            name: inputName || name,
+            phone: inputPhone || phone,
+            shift: inputShift || shift,
+            url: inputUrl || url
+        }
+        editEmployee(updatedEmployee)
     }
 
     render() {
-        console.log('------------------------------')
-        console.log('Props in EmployeeEdit', this.props)
-        const { name, phone, shift } = this.props
         return <EmployeeForm
-            name={name}
-            phone={phone}
-            shift={shift}
+            selectedEmployee={this.props.selectedEmployee}
             buttonText='Update'
             onPress={this.onPress} />
     }
@@ -24,11 +28,13 @@ class EmployeeEdit extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        name: state.employee.selectedEmployee.name,
-        phone: state.employee.selectedEmployee.phone,
-        shift: state.employee.selectedEmployee.shift,
+        selectedEmployee: state.employee.selectedEmployee,
+        inputName: state.employee.name,
+        inputPhone: state.employee.phone,
+        inputShift: state.employee.shift,
+        inputUrl: state.employee.url,
         loading: state.employee.loading
     }
 }
 
-export default connect(mapStateToProps, { updateEmployee })(EmployeeEdit)
+export default connect(mapStateToProps, { editEmployee })(EmployeeEdit)

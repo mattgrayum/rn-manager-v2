@@ -4,7 +4,8 @@ import LoginForm from './components/LoginForm'
 import EmployeeList from './components/EmployeeList'
 import EmployeeCreate from './components/EmployeeCreate'
 import EmployeeEdit from './components/EmployeeEdit'
-import EmployeeDetail from './components/EmployeeDetail';
+import EmployeeDetail from './components/EmployeeDetail'
+import DeleteConfirm from './components/DeleteConfirm'
 
 const RouterComponent = () => {
     return (
@@ -30,6 +31,12 @@ const RouterComponent = () => {
                         initial
                     />
                     <Scene
+                        key="employeeDetail"
+                        component={EmployeeDetail}
+                        title="Employee Detail"
+
+                    />
+                    <Scene
                         key="employeeCreate"
                         component={EmployeeCreate}
                         title="Add an Employee"
@@ -40,10 +47,9 @@ const RouterComponent = () => {
                         title="Update Employee"
                     />
                     <Scene
-                        key="employeeDetail"
-                        component={EmployeeDetail}
-                        title="Employee Detail"
-
+                        key="deleteConfirm"
+                        component={DeleteConfirm}
+                        title="Confirm Delete"
                     />
                 </Scene>
 

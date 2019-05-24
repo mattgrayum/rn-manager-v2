@@ -71,34 +71,57 @@ export const createEmployee = (name, phone, shift, url) => {
  */
 export const getUserEmployees = () => {
 
-    //if (currentUser = firebase.auth().currentUser) {
+    if (currentUser = firebase.auth().currentUser) {
 
-    const userRef =
-        firebase.firestore().collection('users').doc('C3MQcrz167fE1HrviPGOzEeqJ0C2')
+        const userRef =
+            firebase.firestore().collection('users').doc('C3MQcrz167fE1HrviPGOzEeqJ0C2')
 
-    return userRef.get()
-        .then(doc => {
-            if (doc.exists) {
-                return userRef.collection('employees').get()
-                    .then(snapshot => {
-                        let employees = []
-                        snapshot.forEach(doc => {
-                            const data = doc.data()
-                            const { id } = doc
-                            const { name, phone, shift, url } = data
-                            employees.push({ id, name, phone, shift, url })
+        return userRef.get()
+            .then(doc => {
+                if (doc.exists) {
+                    return userRef.collection('employees').get()
+                        .then(snapshot => {
+                            let employees = []
+                            snapshot.forEach(doc => {
+                                const data = doc.data()
+                                const { id } = doc
+                                const { name, phone, shift, url } = data
+                                employees.push({ id, name, phone, shift, url })
+                            })
+                            return employees
                         })
-                        return employees
-                    })
 
-            }
-            else {
-                console.log('You are not a logged in user.')
-            }
-        })
-        .catch(error => console.log('checkUserExists: ', 'error'))
+                }
+                else {
+                    console.log('You are not a logged in user.')
+                }
+            })
+            .catch(error => console.log('checkUserExists: ', error))
 
-    //}
+    }
+}
+
+/**
+ * Upate an employee document.
+ * 
+ * @param {object} employee
+ * 
+ * @returns Promise 
+ */
+export const updateEmployee = employee => {
+
+    if (currentUser = firebase.auth().currentUser) {
+
+        const employeeRef =
+            firebase.firestore()
+                .collection('users').doc(currentUser.uid)
+                .collection('employees').doc(employee.id)
+        return employeeRef.update(employee)
+            .then(() => console.log("Employee ID:", employee.id, 'was updated.'))
+            .catch(error => console.log('FireStore\\updateEmployee:', error))
+
+    }
+
 }
 
 /**
@@ -116,7 +139,7 @@ export const deleteEmployee = id => {
                 .collection('employees').doc(id)
 
         return employeeRef.delete()
-            .then(() => console.log("It has been deleted"))
+            .then(() => console.log("User with ID ", id, " has been deleted"))
             .catch(error => console.log('deleteEmployee:', error))
 
     }

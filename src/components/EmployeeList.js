@@ -14,8 +14,6 @@ class EmployeeList extends React.Component {
     renderEmployees() {
         const { noContentContainerStyle } = styles
         const { loading, employees } = this.props
-        console.log('++++++++++++++++++++++++++++++++++++++++++')
-        console.log(employees)
         if (loading) {
             return (
                 <View style={noContentContainerStyle}>
