@@ -48,17 +48,18 @@ export const createUser = (email, password) =>
  * @param {string} name 
  * @param {string} phone 
  * @param {string} shift 
+ * @param {string} url
  * 
  * @returns Promise
  */
-export const createEmployee = (name, phone, shift) => {
+export const createEmployee = (name, phone, shift, url) => {
 
     if (currentUser = firebase.auth().currentUser) {
 
         const userRef =
             firebase.firestore().collection('users').doc(currentUser.uid)
 
-        return userRef.collection('employees').add({ name, phone, shift })
+        return userRef.collection('employees').add({ name, phone, shift, url })
 
     }
 }
@@ -84,8 +85,8 @@ export const getUserEmployees = () => {
                         snapshot.forEach(doc => {
                             const data = doc.data()
                             const { id } = doc
-                            const { name, phone, shift } = data
-                            employees.push({ id, name, phone, shift })
+                            const { name, phone, shift, url } = data
+                            employees.push({ id, name, phone, shift, url })
                         })
                         return employees
                     })

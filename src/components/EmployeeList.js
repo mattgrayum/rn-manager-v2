@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { FlatList, ScrollView, View, Text } from 'react-native'
+import { FlatList, View, Text } from 'react-native'
 import { Spinner } from './common'
 import { getEmployees, removeEmployee } from '../actions/EmployeeActions'
-import Employee from './EmployeeListItem'
+import EmployeeListItem from './EmployeeListItem'
 
 class EmployeeList extends React.Component {
 
@@ -14,7 +14,8 @@ class EmployeeList extends React.Component {
     renderEmployees() {
         const { noContentContainerStyle } = styles
         const { loading, employees } = this.props
-
+        console.log('++++++++++++++++++++++++++++++++++++++++++')
+        console.log(employees)
         if (loading) {
             return (
                 <View style={noContentContainerStyle}>
@@ -32,7 +33,7 @@ class EmployeeList extends React.Component {
             }
             return <FlatList
                 data={employees}
-                renderItem={({ item }) => <Employee key={item.id} employee={item} />}
+                renderItem={({ item }) => <EmployeeListItem key={item.id} employee={item} />}
                 keyExtractor={employees => employees.id.toString()}
             />
         }

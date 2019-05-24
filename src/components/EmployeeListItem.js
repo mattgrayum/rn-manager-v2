@@ -5,7 +5,7 @@ import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import { Card } from './common'
 import { removeEmployee, selectEmployee } from '../actions/EmployeeActions'
 
-class Employee extends React.Component {
+class EmployeeListItem extends React.Component {
 
     onRowPress = () => {
 
@@ -44,4 +44,4 @@ const styles = {
     }
 }
 
-export default connect(null, { removeEmployee, selectEmployee })(Employee)
+export default connect(null, { removeEmployee, selectEmployee })(EmployeeListItem)

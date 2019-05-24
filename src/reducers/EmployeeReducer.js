@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     name: '',
     phone: '',
     shift: '',
+    url: '',
     employees: [],
     loading: false,
     selectedEmployee: {}

@@ -8,12 +8,8 @@ import { Actions } from 'react-native-router-flux';
 class EmployeeDetail extends React.Component {
 
     onEditPress = () => {
-
-        Actions.employeeCreate({
-            employee: this.props.employee,
-            edit: true
-        })
-
+        const { name, phone, shift } = this.props
+        Actions.employeeEdit({ name, phone, shift })
     }
 
     onDeletePress = () => {
@@ -44,9 +40,11 @@ class EmployeeDetail extends React.Component {
             buttonContainerStyle,
         } = styles
 
-        const { name, phone, shift, url } = this.props.employee
-
+        const { name, phone, shift, url } = this.props
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        console.log('Props in EmployeeDetail', this.props)
         return (
+
             <Card style={containerStyle}>
                 <CardSection style={employeeSectionStyle}>
                     <View style={thumbnailContainerStyle}>
@@ -55,7 +53,7 @@ class EmployeeDetail extends React.Component {
                             style={thumbnailStyle}
                         />
                     </View>
-                    <View style={{ flex: .5 }}>
+                    <View style={{ flex: .5, paddingLeft: 10 }}>
                         <Text style={nameStyle}>{name}</Text>
                         <View style={dataContainerStyle}>
                             <Text style={dataStyle}>{phone}</Text>
@@ -86,11 +84,7 @@ const styles = {
     },
     employeeSectionStyle: {
         flex: 1,
-        flexDirection: 'row',
-        paddingleft: 15,
-        paddingTop: 15,
-        paddingRight: 15,
-        paddingBottom: 10
+        flexDirection: 'row'
     },
     nameStyle: {
         flex: .5,
@@ -105,13 +99,11 @@ const styles = {
         justifyContent: 'space-around'
     },
     thumbnailStyle: {
-        height: 175,
-        width: 175
+        height: 150,
+        width: 150
     },
     thumbnailContainerStyle: {
-        flex: .5,
-        marginLeft: 10,
-        marginRight: 10
+        flex: .5
     },
     buttonContainerStyle: {
         paddingTop: 5,
@@ -121,7 +113,10 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        employee: state.employee.selectedEmployee,
+        name: state.employee.selectedEmployee.name,
+        phone: state.employee.selectedEmployee.phone,
+        shift: state.employee.selectedEmployee.shift,
+        url: state.employee.selectedEmployee.url,
         loading: state.employee.loading
     }
 }
