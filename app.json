@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Test",
-    "slug": "test",
+    "name": "Manager App",
+    "slug": "manager-app",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "A tutorial-derived practice application",
+    "githubUrl": "https://github.com/mattgrayum/rn-manager-v2.git"
   }
 }
